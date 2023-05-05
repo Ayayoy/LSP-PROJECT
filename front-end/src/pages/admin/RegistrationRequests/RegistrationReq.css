@@ -1,0 +1,83 @@
+/* RegistrationReq.css */
+
+/* Set background image to fill page */
+/* body {
+    background-image: url(../../../images/background2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  } */
+  
+  /* Style for card stack */
+  .card-stack {
+    background-color: #00000085;
+    /* height: 100vh; */
+      width: 100%;
+      margin: 0;
+      /* max-width: 800px; */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: auto;
+  }
+  
+  /* Style for each card */
+  .card2 {
+    width:50%;
+    /* height: 250px; */
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: auto;
+  }
+  
+  /* Style for name and email */
+ .reqp {
+    margin: 3px;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+  }
+  
+  /* Style for approve/reject buttons */
+  .buttons3 {
+    /* display: flex; */
+    justify-content: right;
+    margin-top: 20px;
+    position: absolute;
+    top: 0;
+    right: 30px;
+  }
+  
+  .reject , .approve {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .approve {
+    background-color: #4CAF50;
+  }
+  .reject {
+    background-color: #921d1d;
+    margin-left: 5px;
+  }
+  .reject:hover {
+    background-color: #5b1010;
+  }
+
+
+  
+  .approve:hover {
+    background-color: #3e8e41; /* darker green */
+  }
+  
+  .reqbutton:active {
+    background-color: #36723d; /* even darker green */
+  }
+  

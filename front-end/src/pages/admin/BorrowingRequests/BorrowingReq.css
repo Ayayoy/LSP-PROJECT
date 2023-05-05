@@ -1,0 +1,106 @@
+/* BorrowingReq.css */
+.borrowing-container{
+  background-color: #00000085;
+  /* height: 120vh; */
+  font-family: Arial, sans-serif;
+
+}
+
+.borrowing-req-container {
+  overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    width: 30%;
+    margin: 50px;
+    /* height: 100vh; */
+  }
+  
+  .request-card {
+    background-color:  white;
+    /* display: flexbox; */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .request-info {
+    margin: 10px;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+  }
+  
+  .return-date-input {
+    display: flex;
+    justify-content: left;
+    margin: 10px;
+
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .accept-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .deny-button {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .nonMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: rgba(27, 19, 19, 0.281);
+    font-size: 24px;
+  }
+  
+
+  .deny-button:hover {
+    background-color: #951d29;
+  }
+
+  .accept-button:hover{
+    background-color: green;
+  }
+  
+  .request-card-hidden {
+    display: none;
+  }
+
+  .error-message {
+    /* font-size: 100px; */
+    color: #ff0808;
+    border: solid;
+    width: 25%;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+    animation: revert;
+    border-radius: 30px;
+  }
+  

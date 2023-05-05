@@ -1,0 +1,23 @@
+.container {
+  /* background-image: url(../../../images/backgrondLibrary.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; */
+  height: 100vh;
+  overflow: auto;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 22px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.509);
+  padding: 50px;
+}
+
+.centered h2 {
+  margin-bottom: 30px;
+}

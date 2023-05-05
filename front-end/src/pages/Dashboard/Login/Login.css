@@ -1,0 +1,75 @@
+.login-container {
+  /* background-image: url("../../../images/backgrondLibrary.jpg"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  height: 100vh;
+  overflow: auto;
+}
+
+.login-form {
+  background-color: rgba(255, 255, 255, 0.831);
+  width: 400px;
+  margin: auto;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0);
+  margin-top: 100px;
+}
+
+.login-form h1 {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 20px;
+  color: #000000;
+  background-color: #3498db;
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 30px
+}
+
+.login-form form input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-form form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+
+.login-form form button:hover {
+  background-color: #2980b9;
+}
+
+.register-link {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin-top: 20px;
+}
+
+.link {
+  color: rgb(4 106 175);
+}
+
+.link:hover{
+  color: #3498db;
+
+}
+
+.error {
+  font-size: 17px;
+  color: red;
+  padding-bottom: 10px;
+}

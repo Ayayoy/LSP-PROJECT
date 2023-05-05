@@ -1,0 +1,58 @@
+body{
+  background-image: url("../../images/backgrondLibrary.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* height: 0vh; */
+}
+
+
+.background {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .content {
+    /* background-color: #fff; */
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+ .welcome {
+    background-color: #0077cc;;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 30px;
+ }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .login-button,
+  .register-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0077cc; /* Replace with your desired button color */
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login-button:hover,
+  .register-button:hover {
+    background-color: #0066b3; /* Replace with your desired hover button color */
+  }
+  
+  .button {
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+  }
