@@ -234,7 +234,7 @@ await query("UPDATE users SET status = 1, return_date = ? WHERE id = ?", [req.pa
 
 //2-REJECT
 router.delete("/users/:id",
-  admin,
+  
   async (req, res) => {
   try {
       // 1- CHECK IF BOOK EXISTS OR NOT
@@ -261,7 +261,7 @@ router.delete("/users/:id",
 
 //MANAGE BORROW REQUESTS
 // GET route to retrieve a borrow request
-router.get("/borrow",admin, async (req, res) => {
+router.get("/borrow", async (req, res) => {
   try {
     const query = util.promisify(conn.query).bind(conn);
     const borrowRequests = await query(`
@@ -282,7 +282,6 @@ router.get("/borrow",admin, async (req, res) => {
 });
 // 1-ACCEPT
 router.put("/borrow/:id/accept",
-admin,
 body("return_date").isDate(),
 //  admin,
   async (req, res) => {
@@ -306,7 +305,7 @@ body("return_date").isDate(),
 
 //2-REJECT
 router.delete("/borrow/:id/reject",
-  admin,
+  
   async (req, res) => {
   try {
       // 1- CHECK IF REQUEST EXISTS OR NOT
@@ -357,7 +356,7 @@ router.get("", async (req, res) => {
 
 //SEND BORROW REQUEST [ONLY USER]
 router.post("/borrow/id:/:user_id",
-   authorized,
+   
   async (req, res) => {
     try {
       // 1- VALIDATION REQUEST [manual, express validation]
@@ -440,7 +439,7 @@ router.post("/borrow/id:/:user_id",
 
 
 //SHOW LIST OF BORROWED BOOKS[ONLY USER]
-router.get('/borrowedBooks/:user_id',authorized, async (req, res) => {
+router.get('/borrowedBooks/:user_id', async (req, res) => {
   const query = util.promisify(conn.query).bind(conn);
   const borrowedBooks = await query(`
     SELECT b.* 
