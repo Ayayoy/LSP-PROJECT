@@ -4,11 +4,12 @@ import Footer from './shared/Footer';
 
 function App() {
   const location = useLocation();
-  const hideHeader = location.pathname === "/BookList" 
-  || location.pathname === "/BorrowedBooks"  
+  const hideHeader =
+     location.pathname === "/BookList" 
+  || location.pathname === "/BorrowedBooks" 
+  || location.pathname === "/AdminDashboard" 
   || location.pathname === "/RegistrationReq"  
-  || location.pathname === "/BorrowingReq"  
-  || location.pathname === "/AdminDashboard";
+  || location.pathname === "/BorrowingReq"  ;
 
   return (
     <div>

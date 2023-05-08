@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../Login/Login.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { setAuthUser } from "../helper/storage"
 
 const Login = () => {
   const [login, setLogin] = useState({
@@ -21,8 +22,10 @@ const Login = () => {
   })
   .then((resp) => {
     setLogin({ ...login, loading: false, err: [] });
+    setAuthUser(resp.data);
     const { type, id } = resp.data; // get the type and id from the response
     localStorage.setItem('id', id); // store the id in local storage
+    localStorage.setItem('type', type); // store the id in local storage
     if (type === 1) {
       window.location.href = "/AdminDashboard";
     } else if (type === 0) {

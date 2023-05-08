@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminHeader from "../AdminHeader/AdminHeader";
 import "./BorrowingReq.css";
-import Guest from "../../../middleware/admin";
+
 
 
 export default function BorrowingReq() {
@@ -55,7 +55,6 @@ export default function BorrowingReq() {
   };
 
   return (
-     <Guest>
       <div className="borrowing-container">
       <AdminHeader />
       <div className=".borrowing-req-container">
@@ -90,7 +89,7 @@ export default function BorrowingReq() {
         )}
       </div>
     </div>
-     </Guest>
+
     
   );
 }

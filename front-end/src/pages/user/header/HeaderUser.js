@@ -1,11 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../../images/Logo.png';
 import './HeaderUser.css';
+import { removeAuthUser } from "../../Dashboard/helper/storage";
+
 
 function HeaderUser() {
   const navigate = useNavigate();
 
   function handleLogout() {
+    removeAuthUser();
     const id = localStorage.getItem('id');
     if (id) {
       fetch(`http://localhost:4000/Auth/logout/${id}`, {

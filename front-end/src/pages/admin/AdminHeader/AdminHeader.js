@@ -1,14 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../../images/Logo.png';
 import './AdminHeader.css';
+import { removeAuthUser } from "../../Dashboard/helper/storage";
+
 
 
 
 function AdminHeader() {
 
   const navigate = useNavigate();
-
+  
   function handleLogout() {
+    removeAuthUser();
     const id = localStorage.getItem('id');
     if (id) {
       fetch(`http://localhost:4000/Auth/logout/${id}`, {
@@ -16,6 +19,7 @@ function AdminHeader() {
       })
       .then(response => {
         if (response.ok) {
+          localStorage.clear(); // Clear local storage
           navigate('/login');
         } else {
           throw new Error('Logout failed');

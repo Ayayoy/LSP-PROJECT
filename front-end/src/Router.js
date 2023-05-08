@@ -11,7 +11,9 @@ import BorrowedBooks from "./pages/user/borrowedBooks/BorrowedBooks";
 import RegistrationReq from "./pages/admin/RegistrationRequests/RegistrationReq";
 import BorrowingReq from "./pages/admin/BorrowingRequests/BorrowingReq";
 import AdminDashboard from "./pages/admin/admin_dashboard/AdminDashboard";
-import BookCard from "./pages/admin/book_card/BookCard";
+import Guest from "./middleware/user";
+
+import Admin from "./middleware/admin";
 import BookCards from "./pages/user/book_cards/BookCards";
 
 
@@ -35,13 +37,37 @@ export const router = createBrowserRouter([
         element: <ContactForm />,
       },
       {
-        path: "/login",
-        element: <Login />,
+        element: <Guest />,
+        children: [
+
+          {
+            path: "/register",
+            element: <Register />,
+          },
+          {
+            path: "/login",
+            element: <Login />,
+          },
+        ]
       },
       {
-        path: "/register",
-        element: <Register />,
+        element: <Admin />,
+        children: [
+          {
+            path: "/AdminDashboard",
+            element: <AdminDashboard />,
+          },
+          {
+            path: "/RegistrationReq",
+            element: <RegistrationReq />,
+          },
+          {
+            path: "/BorrowingReq",
+            element: <BorrowingReq />,
+          },
+        ],
       },
+
       {
         path: "/BookList",
         element: <BookList />,
@@ -51,25 +77,10 @@ export const router = createBrowserRouter([
         element: <BorrowedBooks />,
       },
       {
-        path: "/AdminDashboard",
-        element: <AdminDashboard />,
-      },
-      {
-        path: "/BookCard",
-        element: <BookCard />,
-      },
-      {
         path: "/BookCards",
         element: <BookCards />,
       },
-      {
-        path: "/RegistrationReq",
-        element: <RegistrationReq />,
-      },
-      {
-        path: "/BorrowingReq",
-        element: <BorrowingReq />,
-      },
+
       {
         path: "*",
         element: <NotFound />,
