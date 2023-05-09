@@ -59,6 +59,8 @@ await query("UPDATE users SET online_status = 1 WHERE email = ?", [req.body.emai
 
 const id = user[0].id; 
 
+const token = user[0].token; 
+
 const userType = user[0].type;
 
 delete user[0].password;
@@ -66,8 +68,8 @@ delete user[0].password;
 return res.status(200).json({
   msg: "login successfully",
   type: userType,
-  id: id // send the userId in the response
-  
+  id: id, // send the userId in the response
+  token: token
 });
       
     } catch (err) {
@@ -80,6 +82,8 @@ return res.status(200).json({
     }
   }
 );
+
+
 
 //LOG OUT
 router.put("/logout/:id", async (req, res) => {
@@ -135,10 +139,8 @@ router.post(
 
       // 2- CHECK IF EMAIL EXISTS
       const query = util.promisify(conn.query).bind(conn); // transform query mysql --> promise to use [await/async]
-      const checkEmailExists = await query(
-        "select * from users where email = ?",
-        [req.body.email]
-      );
+      const checkEmailExists = await query("select * from users where email = ?",[req.body.email]);
+      
       if (checkEmailExists.length > 0) {
         res.status(400).json({
           errors: [

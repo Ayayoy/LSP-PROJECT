@@ -10,7 +10,7 @@ const fs = require("fs"); // file system
 // CREATE BOOK [ADMIN]
 router.post(
     "/create",
-     
+    // admin,
     upload.single("image"),
     body("title")
       .isString()
@@ -83,6 +83,7 @@ router.post(
 // UPDATE BOOK [ADMIN]
 router.put(
     "/:id", // params
+    // admin,
     upload.single("image"),
     body("title"),
     body("author"),
@@ -92,13 +93,14 @@ router.put(
     async (req, res) => {
         try {
             // 1- VALIDATION REQUEST [manual, express validation]
-            const query = util.promisify(conn.query).bind(conn);
+
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
 
             // 2- CHECK IF BOOK EXISTS OR NOT
+            const query = util.promisify(conn.query).bind(conn);
             const book = await query("select * from books where id = ?", [
                 req.params.id,
             ]);
@@ -154,7 +156,7 @@ router.put(
 
 // DELETE BOOK [ADMIN]
 router.delete("/:id",
-  
+//  admin,
   async (req, res) => {
         try {
             // 1- CHECK IF BOOK EXISTS OR NOT
@@ -182,7 +184,7 @@ router.delete("/:id",
 
 //FILTER BOOKS BY ISBN
 router.get("/filter",
-  
+//  admin,
   async (req, res) => {
   try {
     const query = util.promisify(conn.query).bind(conn);
@@ -199,7 +201,7 @@ router.get("/filter",
 
 // SHOW IN-ACTIVE USERS
 router.get("/users",
-  
+//  admin,
   async (req, res) => {
   try {
       const query = util.promisify(conn.query).bind(conn);
@@ -215,7 +217,7 @@ router.get("/users",
 // MANAGE USER ACCOUNTS [ADMIN ONLY]
 // 1-APPROVE
 router.put("/users/:id",
-  
+//  admin,
   async (req, res) => {
     try {
         const query = util.promisify(conn.query).bind(conn);
@@ -224,8 +226,11 @@ router.put("/users/:id",
             res.status(404).json({ ms: "user not found !" });
         }
 
-// Update user status to 1
-await query("UPDATE users SET status = 1, return_date = ? WHERE id = ?", [req.params.id]);
+        // Update user status to 1
+        await query("update users set status = 1 where id = ?", [
+            req.params.id,
+        ]);
+
         res.status(200).json({ ms: "user status updated successfully" });
     } catch (err) {
         res.status(500).json(err);
@@ -234,10 +239,10 @@ await query("UPDATE users SET status = 1, return_date = ? WHERE id = ?", [req.pa
 
 //2-REJECT
 router.delete("/users/:id",
-  
+//  admin,
   async (req, res) => {
   try {
-      // 1- CHECK IF BOOK EXISTS OR NOT
+      // 1- CHECK IF USER EXISTS OR NOT
       const query = util.promisify(conn.query).bind(conn);
       const user = await query("select * from users where id = ?", [
           req.params.id,
@@ -280,9 +285,10 @@ router.get("/borrow", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 // 1-ACCEPT
 router.put("/borrow/:id/accept",
-body("return_date").isDate(),
+body("returnDate").isDate(),
 //  admin,
   async (req, res) => {
   try {
@@ -293,7 +299,10 @@ body("return_date").isDate(),
     if (!borrow[0]) {
       res.status(404).json({ ms: "Borrow request not found!" });
     } else {
-      await query("UPDATE borrow SET status = 1 WHERE id = ?", [req.params.id]);
+      await query("UPDATE borrow SET status = 1 , returnDate = ? WHERE id = ?", [
+        req.body.returnDate,
+        req.params.id,
+      ]);      
             res.status(200).json({ ms: "Borrow request accepted successfully" });
     }
   } catch (err) {
@@ -303,9 +312,9 @@ body("return_date").isDate(),
 
 
 
-//2-REJECT
+//2-DENY
 router.delete("/borrow/:id/reject",
-  
+//  admin,
   async (req, res) => {
   try {
       // 1- CHECK IF REQUEST EXISTS OR NOT
@@ -336,12 +345,12 @@ router.delete("/borrow/:id/reject",
 //SEARCH AND LIST
 router.get("", async (req, res) => {
   const query = util.promisify(conn.query).bind(conn);
-  let searchQuery = "SELECT * FROM books";
+  let searchQuery = "SELECT * FROM books  ";
   let searchParams = [];
 
   if (req.query.search) {
-    searchQuery += " WHERE title LIKE ? OR author LIKE ? OR subject LIKE ? OR isbn LIKE ?";
-    searchParams = Array(4).fill(`%${req.query.search}%`);
+    searchQuery += " WHERE title LIKE ? OR author LIKE ? OR subject LIKE ? OR isbn LIKE ?  OR rack_number LIKE ?";
+    searchParams = Array(5).fill(`%${req.query.search}%`);
   }
 
   const books = await query(searchQuery, searchParams);
@@ -354,12 +363,13 @@ router.get("", async (req, res) => {
 });
 
 
-//SEND BORROW REQUEST [ONLY USER]
-router.post("/borrow/id:/:user_id",
-   
+
+// SEND BORROW REQUEST [ONLY USER]
+router.post("/borrow/:id/:user_id",
+  // authorized,
   async (req, res) => {
     try {
-      // 1- VALIDATION REQUEST [manual, express validation]
+      // 1- VALIDATE REQUEST [manual, express validation]
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -379,7 +389,6 @@ router.post("/borrow/id:/:user_id",
       }
 
       // 3- CHECK IF USER EXISTS
-     
       const checkUserExists = await query("SELECT * FROM users WHERE id = ?", [req.params.user_id]);
       if (checkUserExists.length === 0) {
         return res.status(400).json({
@@ -415,11 +424,11 @@ router.post("/borrow/id:/:user_id",
         });
       }
 
-      // 6- PREPARE OBJECT BORROW TO -> SAVE
+      // 6- PREPARE BORROW OBJECT TO SAVE
       const borrow = {
         book_id: req.params.id,
         user_id: req.params.user_id,
-        status: 0       
+        borrow_date: new Date()
       };
 
       // 7- INSERT BORROW OBJECT INTO DB
@@ -430,7 +439,7 @@ router.post("/borrow/id:/:user_id",
       });
     } catch (err) {
       console.error(err);
-      res.status(500).json(err);
+      res.status(500).json({ msg: "Server error" });
     }
   }
 );
@@ -466,6 +475,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({ ms: "book not found !" });
   }
   book[0].image_url = "http://" + req.hostname + ":4000/" + book[0].image_url;
+  
   res.status(200).json(book[0]);
 });
 
